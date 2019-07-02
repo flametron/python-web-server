@@ -2,9 +2,9 @@ import socket
 import os
 
 class Server:
-    def __init__(self,hostname="localhost",port=80,docs="\\htdocs",index="index.html",connections=5,logs="\\logs\\log.txt",customExtensions = False, error404=os.path.join(os.path.join(os.getcwd(),"htdocs"),"error404.html")):
+    def __init__(self,hostname="localhost",port=80,docs=os.path.join(os.getcwd(),"htdocs"),index="index.html",connections=5,logs=os.path.join(os.path.join(os.getcwd(),"logs"),"logs.txt"),customExtensions = False, error404=os.path.join(os.path.join(os.getcwd(),"htdocs"),"error404.html")):
         self.error404 = error404
-        self.extensions = ["php","js","css","html","xml"]
+        self.extensions = ["php","js","css","html","xml","htm"]
         self.port=port
         self.host=hostname
         if not docs.endswith("\\"): docs=docs+"\\"
