@@ -35,6 +35,3 @@ class Server:
                 self.log("Did not find file: {}".format(path))
             except Exception as e:
                 self.log("[CRITICAL ERROR}: {}".format(e))
-
-serv = Server(docs="D:\Python-Web-Server\htdocs",logs="D:\Python-Web-Server\logs\logs.txt")
-serv.startServer()
