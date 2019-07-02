@@ -1,5 +1,4 @@
 import socket
-import os
 
 class Server:
     def __init__(self,hostname="localhost",port=80,docs="\\htdocs",index="index.html",connections=5,logs="\\logs\\log.txt"):
@@ -12,8 +11,11 @@ class Server:
         self.logs = logs
         
     def log(self,entry):
-        with open(self.logs,"a") as file:
-            file.write("{}: {}\n".format(self.port,entry))
+        try:
+            with open(self.logs,"a") as file:
+                file.write("{}: {}\n".format(self.port,entry))
+        except FileNotFoundError:
+            print("Please make sure the path {} exists, error on writing log".format(self.logs))
     
     def startServer(self):
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -26,13 +28,13 @@ class Server:
                 client_connection, client_address = server_socket.accept()
                 request = client_connection.recv(1024).decode("utf-8").split("\n")
                 path=request[0].split()[1]
-                if path=="/": path="/{}".format(self.index)
+                if path.endswith("/"): path="/{}".format(self.index)
                 path=self.docroot+path
-                path=path.replace("/","\\")
+                path=path.replace("/","\\").replace("\\\\","\\").replace("\\\\","\\")
                 http_response = "HTTP/1.1 200\n\n"+str(open(path,"r").read())
                 client_connection.sendall(http_response.encode())
                 client_connection.close()
             except FileNotFoundError:
                 self.log("Did not find file: {}".format(path))
             except Exception as e:
-                self.log("[CRITICAL ERROR}: {}".format(e))
+                self.log("[CRITICAL ERROR]: {}".format(e))
