@@ -20,5 +20,5 @@ from server import Server
 # Example
 ```python
 serv = Server(docs="D:\Python-Web-Server-testing\\files",index="abcd.html",logs="D:\Python-Web-Server-testing\logs\logs.txt",customExtensions="html,php")
-serv.startServer()
+serv.startServer() 
 ```
