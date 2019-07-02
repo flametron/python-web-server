@@ -1,5 +1,4 @@
 import socket
-import os
 
 class Server:
     def __init__(self,port=80,docs="\\htdocs",index="index.html",connections=5,logs="\\logs\\log.txt"):
