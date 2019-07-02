@@ -28,6 +28,8 @@ class Server:
                 client_connection, client_address = server_socket.accept()
                 request = client_connection.recv(1024).decode("utf-8").split("\n")
                 path=request[0].split()[1]
+                if not path.endswith("/"):path=path+"/"
+                if path=="/": path="{}".format(self.index)
                 if path.endswith("/"): path=path+"/{}".format(self.index)
                 path=self.docroot+path
                 path=path.replace("/","\\").replace("\\\\","\\").replace("\\\\","\\")
