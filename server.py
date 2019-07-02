@@ -28,7 +28,7 @@ class Server:
                 client_connection, client_address = server_socket.accept()
                 request = client_connection.recv(1024).decode("utf-8").split("\n")
                 path=request[0].split()[1]
-                if path.endswith("/"): path="/{}".format(self.index)
+                if path.endswith("/"): path=path+"/{}".format(self.index)
                 path=self.docroot+path
                 path=path.replace("/","\\").replace("\\\\","\\").replace("\\\\","\\")
                 http_response = "HTTP/1.1 200\n\n"+str(open(path,"r").read())
