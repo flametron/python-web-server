@@ -1,8 +1,10 @@
 import socket
+import os
 
 class Server:
-    def __init__(self,port=80,docs="\\htdocs",index="index.html",connections=5,logs="\\logs\\log.txt"):
+    def __init__(self,hostname="localhost",port=80,docs="\\htdocs",index="index.html",connections=5,logs="\\logs\\log.txt"):
         self.port=port
+        self.host=hostname
         if not docs.endswith("\\"): docs=docs+"\\"
         self.docroot=docs
         self.maxcons=connections
@@ -16,9 +18,9 @@ class Server:
     def startServer(self):
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server_socket.bind(("localhost", self.port))
+        server_socket.bind((self.host, self.port))
         server_socket.listen(self.maxcons)
-        print("Server listening at {}:{}\nDocument root: {}\nMaximum number of connections: {}".format(socket.gethostname(),self.port,self.docroot,self.maxcons))
+        print("Server listening at {}:{}\nDocument root: {}\nMaximum number of connections: {}".format(self.host,self.port,self.docroot,self.maxcons))
         while True:
             try:
                 client_connection, client_address = server_socket.accept()
