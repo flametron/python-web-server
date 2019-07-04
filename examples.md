@@ -12,6 +12,7 @@
     serv = Server(docs="D:\ServerFiles",port=445,hostname="mysite.domain")
     serv.startServer()
     ```
+    
     The above code will start a new web server with website root at `D:\ServerFiles`, runing on port `445` with `mysite.domain` as hostname.
 
 * ```python
@@ -19,4 +20,5 @@
     website = Server(customExtensions=["txt"])
     website.startServer()
     ```
+
     The above code will start the server with `.txt` as a valid file extension to show to the client user agent. The extensions declared by default are: `.php`,`.html`,`.htm`,`.xml`,`.js`,`.css`. Any further extensions passed to Server will be added to this list. If you don't wanna add any custom extensions, put `customExtensions=False` or just omit it altogether.
