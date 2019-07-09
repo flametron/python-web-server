@@ -44,13 +44,13 @@ class Server:
                 if path.endswith("/"): path=path+"/{}".format(self.index)
                 path=self.docroot+path
                 path=path.replace("/","\\").replace("\\\\","\\").replace("\\\\","\\")
-                http_response = "HTTP/1.1 200\n\n"+str(open(path,"r").read())
+                http_response = "HTTP/1.1 200 OK\r\n\r\n"+str(open(path,"r").read())
                 client_connection.sendall(http_response.encode())
                 client_connection.close()
             except FileNotFoundError:
                 self.log("Did not find file: {}".format(path))
                 if self.index in path:
-                    http_response = "HTTP/1.1 200\n\n"+str(open(os.path.join(os.path.join(os.getcwd(),"htdocs"),"index.html"),"r").read())
+                    http_response = "HTTP/1.1 200 OK\r\n\r\n"+str(open(os.path.join(os.path.join(os.getcwd(),"htdocs"),"index.html"),"r").read())
                 else:
                     http_response = "HTTP/1.1 404\n\n"+str(open(self.error404,"r").read())                        
                 client_connection.sendall(http_response.encode())
